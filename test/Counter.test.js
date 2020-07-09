@@ -12,18 +12,17 @@ const INITIAL_VALUE = 123;
 const PUBLISHER_ROLE = web3.utils.soliditySha3('PUBLISHER_ROLE');
 
 contract('Counter', (accounts) => {
-  const ctx = {};
   const [ owner, other ] = accounts;
 
   beforeEach(async () => {
     // Deploy Counter contract
-    ctx.counter = await Counter.new(INITIAL_VALUE, { from: owner });
+    this.counter = await Counter.new(INITIAL_VALUE, { from: owner });
   });
 
-  shouldBehaveLikeAccessControl(ctx, owner);
+  shouldBehaveLikeAccessControl(() => this.counter, owner);
 
   it('initializes with an initial value', async () => {
-    const value = await ctx.counter.read();
+    const value = await this.counter.read();
 
     // Chai Assert
     assert.equal(value.toNumber(), INITIAL_VALUE, 'value should be equal to initial value');
@@ -35,25 +34,25 @@ contract('Counter', (accounts) => {
   });
 
   it('non-publishers cannot call publish', async () => {
-    const isPublisher = await ctx.counter.hasRole(PUBLISHER_ROLE, other);
+    const isPublisher = await this.counter.hasRole(PUBLISHER_ROLE, other);
     expect(isPublisher).to.equal(false);
 
     await expectRevert(
-      ctx.counter.publish(9000, { from: other }),
+      this.counter.publish(9000, { from: other }),
       "Caller is not a publisher."
     );
   });  
 
   it('publishers can call publish', async () => {
-    const isPublisher = await ctx.counter.hasRole(PUBLISHER_ROLE, owner);
+    const isPublisher = await this.counter.hasRole(PUBLISHER_ROLE, owner);
     expect(isPublisher).to.equal(true);
 
     const NEW_VALUE = 9000;
-    const receipt = await ctx.counter.publish(NEW_VALUE, { from: owner });
+    const receipt = await this.counter.publish(NEW_VALUE, { from: owner });
 
     expectEvent(receipt, 'Published', { source: owner, newValue: new BN(NEW_VALUE) });
     
-    const newValue = await ctx.counter.read();
+    const newValue = await this.counter.read();
     expect(newValue.toNumber()).to.equal(NEW_VALUE);
   });
 })

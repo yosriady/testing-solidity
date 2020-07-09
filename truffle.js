@@ -83,7 +83,10 @@ module.exports = {
   mocha: {
     // timeout: 100000
     reporter: 'eth-gas-reporter',
-    reporterOptions : {} // https://github.com/cgewecke/eth-gas-reporter#options
+    reporterOptions : {
+      onlyCalledMethods: false,
+      showMethodSig: true
+    } // https://github.com/cgewecke/eth-gas-reporter#options
   },
 
   // Configure your compilers

@@ -2,7 +2,7 @@ const DEFAULT_ADMIN_ROLE = '0x00000000000000000000000000000000000000000000000000
 
 function shouldBehaveLikeAccessControl(ctx, owner) {
   it('deployer has default admin role', async () => {
-    const hasAdminRole = await ctx.counter.hasRole(DEFAULT_ADMIN_ROLE, owner)
+    const hasAdminRole = await ctx().hasRole(DEFAULT_ADMIN_ROLE, owner)
     expect(hasAdminRole).to.equal(true);
   });
 }
