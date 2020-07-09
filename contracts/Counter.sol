@@ -15,6 +15,9 @@ contract Counter is AccessControl {
     constructor(uint initialValue) public {
         _value = initialValue;
 
+        // Grant the admin role to the contract deployer
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+
         // Grant the publisher role to the contract deployer
         _setupRole(PUBLISHER_ROLE, msg.sender);
     }
