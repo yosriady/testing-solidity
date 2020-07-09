@@ -3,6 +3,7 @@ const {
   constants,    // Common constants, like the zero address and largest integers
   expectEvent,  // Assertions for emitted events
   expectRevert, // Assertions for transactions that should fail
+  time,         // Time manipulation
 } = require('@openzeppelin/test-helpers');
 
 const Counter = artifacts.require("Counter");
@@ -15,7 +16,7 @@ contract('Counter', (accounts) => {
   const [ owner, other ] = accounts;
 
   beforeEach(async () => {
-    // Deploy Counter contract
+    // Deploy Counter contract before every test
     this.counter = await Counter.new(INITIAL_VALUE, { from: owner });
   });
 
@@ -55,4 +56,19 @@ contract('Counter', (accounts) => {
     const newValue = await this.counter.read();
     expect(newValue.toNumber()).to.equal(NEW_VALUE);
   });
+
+  it('subsequent publishes must wait for at least an hour', async () => {
+    await this.counter.publish(9001, { from: owner });
+
+    await expectRevert(
+      this.counter.publish(9002, { from: owner }),
+      "Updates must be between at least an hour."
+    );
+
+    await time.increase(3720); // 1 hour 2 minutes
+    await this.counter.publish(9002, { from: owner });
+
+    const newValue = await this.counter.read();
+    expect(newValue.toNumber()).to.equal(9002);
+  });  
 })
