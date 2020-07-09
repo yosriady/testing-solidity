@@ -62,7 +62,7 @@ contract('Counter', (accounts) => {
 
     await expectRevert(
       this.counter.publish(9002, { from: owner }),
-      "Updates must be between at least an hour."
+      "Updates must be between at least an hour apart."
     );
 
     await time.increase(3720); // 1 hour 2 minutes

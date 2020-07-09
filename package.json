@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "lint": "solhint contracts/**/*.sol",
-    "lint:init": "solhint init-config",
     "test": "truffle test",
     "coverage": "truffle run coverage"
   },
