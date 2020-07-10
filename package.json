@@ -2,9 +2,8 @@
   "name": "testing-solidity",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:yosriady/testing-solidity.git",
+  "description": "Example Solidity unit testing Truffle project. Includes common test scenarios and a kitchen sink of test helpers.",
   "author": "Yos Riady <yosriady@gmail.com>",
-  "license": "MIT",
   "scripts": {
     "lint": "solhint contracts/**/*.sol",
     "test": "truffle test",
@@ -19,5 +18,9 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^3.1.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/yosriady/testing-solidity/issues"
+  },
+  "homepage": "https://github.com/yosriady/testing-solidity"
 }
