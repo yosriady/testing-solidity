@@ -4,9 +4,12 @@ Learn more by reading the [blog post](https://yos.io/2020/07/09/testing-smart-co
 
 ## Getting Started
 
+> Install [`nvm`](https://github.com/nvm-sh/nvm) to easily manage your Node.js versions.
+
 ```bash
 git clone git@github.com:yosriady/testing-solidity.git
 cd testing-solidity
+nvm use
 yarn test
 ```
 
