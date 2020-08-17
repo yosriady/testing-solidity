@@ -5,14 +5,14 @@
   "description": "Example Solidity unit testing Truffle project. Includes common test scenarios and a kitchen sink of test helpers.",	
   "author": "Yos Riady <yosriady@gmail.com>",
   "scripts": {
-    "build": "truffle build && yarn generate-types && tsc",
+    "compile": "truffle compile && yarn generate-types && tsc",
     "generate-types": "typechain --target=truffle-v5 'build/contracts/*.json'",
     "postinstall": "truffle compile && yarn generate-types",
     "migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
     "typecheck": "tsc --noEmit",
     "lint": "./node_modules/solhint/solhint.js contracts/**/*.sol",
     "coverage": "yarn build && truffle run coverage --file=\"./build/test/**/*.js\"",
-    "test": "yarn build && truffle test ./build/test/**"
+    "test": "yarn compile && truffle test ./build/test/**"
   },
   "devDependencies": {
     "@openzeppelin/test-helpers": "^0.5.6",
