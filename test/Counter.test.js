@@ -1,3 +1,6 @@
+require("dotenv").config();
+jest.setTimeout(100000);
+
 const { ethers } = require('ethers')
 const {
   BN,           // Big Number support e.g. new BN(1)
