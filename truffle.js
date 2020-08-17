@@ -18,7 +18,8 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+require("dotenv").config();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
@@ -36,6 +37,16 @@ module.exports = {
    */
 
   networks: {
+    test: {
+      skipDryRun: true,
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*",
+      provider: () => new HDWalletProvider(
+        process.env.PRIV_KEY_DEPLOY,
+        "http://127.0.0.1:8545",
+      ),
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -82,11 +93,12 @@ module.exports = {
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
-    reporter: 'eth-gas-reporter',
-    reporterOptions : {
-      onlyCalledMethods: false,
-      showMethodSig: true
-    } // https://github.com/cgewecke/eth-gas-reporter#options
+    // reporter: 'eth-gas-reporter',
+    // reporterOptions : {
+    //   onlyCalledMethods: false,
+    //   showMethodSig: true,
+    //   url: "http://127.0.0.1:8545"
+    // } // https://github.com/cgewecke/eth-gas-reporter#options
   },
 
   // Configure your compilers
