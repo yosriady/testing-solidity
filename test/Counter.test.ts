@@ -1,3 +1,5 @@
+import { CounterInstance } from "../types/truffle-contracts";
+
 const {
   BN,           // Big Number support e.g. new BN(1)
   constants,    // Common constants, like the zero address and largest integers
@@ -10,12 +12,13 @@ const Counter = artifacts.require("Counter");
 const shouldBehaveLikeAccessControl = require('./AccessControl.behaviour');
 
 const INITIAL_VALUE = 123;
-const PUBLISHER_ROLE = web3.utils.soliditySha3('PUBLISHER_ROLE');
+const PUBLISHER_ROLE = web3.utils.soliditySha3('PUBLISHER_ROLE') as string;
 
 contract('Counter', (accounts) => {
   const [ owner, other ] = accounts;
 
-  let counter
+  let counter: CounterInstance;
+
   beforeEach(async () => {
     // Deploy Counter contract before every test
     counter = await Counter.new(INITIAL_VALUE, { from: owner });
