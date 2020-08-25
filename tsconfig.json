@@ -10,5 +10,5 @@
     "allowJs": true,
     "outDir": "build/"
   },
-  "exclude": ["./migrations-ts/*.ts"]
+  "exclude": ["./migrations-ts/*.ts", "coverage", "build"]
 }
